@@ -3,7 +3,10 @@
  * Centralizes REST API calls to the Flask backend.
  */
 
-const API_BASE = '/api';
+// Use VITE_API_BASE if provided (e.g., https://your-backend.onrender.com), otherwise fallback to local proxy /api
+const customBase = import.meta.env.VITE_API_BASE ? import.meta.env.VITE_API_BASE.replace(/\/+$/, '') : '';
+const API_BASE = customBase ? `${customBase}/api` : '/api';
+
 
 async function handleResponse(res) {
   if (!res.ok) {
